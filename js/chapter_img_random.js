@@ -1,13 +1,11 @@
 var canvas = document.getElementById('rectangle');
 var ctx = canvas.getContext('2d');
 var head_num = 9;
-
-
 var eye_control_y = 60;
 var eye_pos_y = 60;
-
 var mouth_control_y = 100;
 var mouth_pos_y = 100;
+
 onload = function()
 {
 	CreateHead(ctx, head_num, 100, 80, 70);
@@ -17,22 +15,39 @@ onload = function()
 
 function CreateEye(context, start_x, start_y, end_x, end_y, control_x, control_y, eye_width)
 {
-	// if(ジト目以下なら目を開く)
-	if(60 < eye_control_y)
-	{
-		console.log(11);
-	}else
+	// 目玉あり
+	if(60 < eye_control_y && eye_control_y < 72)
 	{
 		context.beginPath();
 		//左目
-		context.moveTo(start_x, start_y);  // 始点まで移動
-		context.quadraticCurveTo(control_x, control_y, end_x, end_y);   // 2次ベジュ曲線を描画
+		context.moveTo(start_x, start_y);
+		context.quadraticCurveTo(control_x, control_y, end_x, end_y);
+		//右目
+		context.moveTo(start_x + eye_width, start_y);
+		context.quadraticCurveTo(control_x + eye_width, control_y, end_x + eye_width, end_y);
+		context.fillStyle = '#CCCCCC';
+		context.fill();
+		context.closePath();
+	}
+	// ただの線
+	if(eye_control_y <= 60)
+	{
+		context.beginPath();
+		//左目
+		context.moveTo(start_x, start_y);
+		context.quadraticCurveTo(control_x, control_y, end_x, end_y);
 		//右目
 		context.moveTo(start_x + eye_width, start_y);  // 始点まで移動
-		context.quadraticCurveTo(control_x + eye_width, control_y, end_x + eye_width, end_y);   // 2次ベジュ曲線を描画
-		context.strokeStyle = "Orange";  // 線の色
-		context.lineWidth = 2;           // 線の太さ
+		context.quadraticCurveTo(control_x + eye_width, control_y, end_x + eye_width, end_y);
+		context.strokeStyle = "Orange";
+		context.lineWidth = 2;
 		context.stroke();
+	}
+	// 怒り目
+	if(72 <= eye_control_y)
+	{
+		// console
+		console.log(11);
 	}
 }
 function CreateHead(context, n, dx, dy, size)
@@ -54,15 +69,12 @@ function CreateMouth(context, start_x, start_y, end_x, end_y, control_x, control
 {
 	//control_yで口の開き具合
 	context.beginPath();
-	context.moveTo(start_x, start_y);  // 始点まで移動
-	context.quadraticCurveTo(control_x, control_y, end_x, end_y);   // 2次ベジュ曲線を描画
-	context.strokeStyle = "Orange";  // 線の色
-	context.lineWidth = 5;           // 線の太さ
+	context.moveTo(start_x, start_y);
+	context.quadraticCurveTo(control_x, control_y, end_x, end_y);
+	context.strokeStyle = "Orange";
+	context.lineWidth = 5;
 	context.stroke();
 }
-
-
-
 function good_eye()
 {
 	eye_control_y -= 3;
@@ -91,18 +103,18 @@ function good_head()
 	CleateCharacter();
 }
 
-function bad_mouth(){
+function bad_mouth()
+{
 	mouth_control_y -= 5;
 	mouth_pos_y +=3;
 	CleateCharacter();
 }
-function good_mouth(){
+function good_mouth()
+{
 	mouth_control_y += 5;
 	mouth_pos_y -=3;
 	CleateCharacter();
 }
-
-
 function CleateCharacter()
 {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
