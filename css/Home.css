@@ -82,6 +82,11 @@ img {
   height: 200px;
 }
 
+.test_but  > .row{
+  width: 80%;
+  margin: auto;
+}
+
 .profile
 {
   width: 80%;

@@ -1,28 +1,39 @@
 var canvas = document.getElementById('rectangle');
 var ctx = canvas.getContext('2d');
 var head_num = 9;
-var mouth_control_y = 120;
-var eye_control_y = 60;
 
+
+var eye_control_y = 60;
+var eye_pos_y = 60;
+
+var mouth_control_y = 100;
+var mouth_pos_y = 100;
 onload = function()
 {
-	CreateHead(ctx, 21, 100, 80, 70);
-	CreateMouth(ctx, 60, 110, 140, 110, 100, 120);
-	CreateEye(ctx, 60, 50, 90, 50, 80, 60, 50);
+	CreateHead(ctx, head_num, 100, 80, 70);
+	CreateMouth(ctx, 60, mouth_pos_y, 140, mouth_pos_y, 100, mouth_control_y);
+	CreateEye(ctx, 70, eye_pos_y, 90, eye_pos_y, 80, eye_control_y, 40);
 };
 
 function CreateEye(context, start_x, start_y, end_x, end_y, control_x, control_y, eye_width)
 {
-	context.beginPath();
-	//左目
-	context.moveTo(start_x, start_y);  // 始点まで移動
-	context.quadraticCurveTo(control_x, control_y, end_x, end_y);   // 2次ベジュ曲線を描画
-	//右目
-	context.moveTo(start_x + eye_width, start_y);  // 始点まで移動
-	context.quadraticCurveTo(control_x + eye_width, control_y, end_x + eye_width, end_y);   // 2次ベジュ曲線を描画
-	context.strokeStyle = "Orange";  // 線の色
-	context.lineWidth = 2;           // 線の太さ
-	context.stroke();
+	// if(ジト目以下なら目を開く)
+	if(60 < eye_control_y)
+	{
+		console.log(11);
+	}else
+	{
+		context.beginPath();
+		//左目
+		context.moveTo(start_x, start_y);  // 始点まで移動
+		context.quadraticCurveTo(control_x, control_y, end_x, end_y);   // 2次ベジュ曲線を描画
+		//右目
+		context.moveTo(start_x + eye_width, start_y);  // 始点まで移動
+		context.quadraticCurveTo(control_x + eye_width, control_y, end_x + eye_width, end_y);   // 2次ベジュ曲線を描画
+		context.strokeStyle = "Orange";  // 線の色
+		context.lineWidth = 2;           // 線の太さ
+		context.stroke();
+	}
 }
 function CreateHead(context, n, dx, dy, size)
 {
@@ -50,6 +61,21 @@ function CreateMouth(context, start_x, start_y, end_x, end_y, control_x, control
 	context.stroke();
 }
 
+
+
+function good_eye()
+{
+	eye_control_y -= 3;
+	eye_pos_y += 3;
+	CleateCharacter();
+}
+function bad_eye()
+{
+	eye_control_y += 3;
+	eye_pos_y -= 3;
+	CleateCharacter();
+}
+
 function bad_head()
 {
 	if( 9 <= head_num)
@@ -67,30 +93,20 @@ function good_head()
 
 function bad_mouth(){
 	mouth_control_y -= 5;
+	mouth_pos_y +=3;
 	CleateCharacter();
 }
-function good_mouth()
-{
+function good_mouth(){
 	mouth_control_y += 5;
+	mouth_pos_y -=3;
 	CleateCharacter();
 }
-function good_eye()
-{
-	eye_control_y -= 5;
-	CleateCharacter();
-}
-function bad_eye()
-{
-	eye_control_y += 5;
-	CleateCharacter();
-}
-
 
 
 function CleateCharacter()
 {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	CreateHead(ctx, head_num, 100, 80, 70);
-	CreateMouth(ctx, 60, 110, 140, 110, 100, mouth_control_y);
-	CreateEye(ctx, 60, 50, 90, 50, 80, eye_control_y, 50);
+	CreateMouth(ctx, 60, mouth_pos_y, 140, mouth_pos_y, 100, mouth_control_y);
+	CreateEye(ctx, 70, eye_pos_y, 90, eye_pos_y, 80, eye_control_y, 40);
 }
