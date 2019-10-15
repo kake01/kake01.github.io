@@ -1,0 +1,97 @@
+html {
+  height: 100%;
+  /* text-align: center; */
+}
+body {
+  background: #E7E6E6;
+  height: 100%;
+  margin: unset;
+}
+img {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+}
+
+/* profileに関して */
+.profile {
+  width: 80%;
+  height: 50%;
+  margin: auto;
+}
+.profile h1 {
+  padding-top: 20%;
+  font-size: xx-large;
+  margin: unset;
+}
+.profile_img {
+  width: 60%;
+  height: 60%;
+  margin: 5% auto 0;
+  /* background: blue; */
+}
+.absolute {position: absolute;}
+.relative{position: relative;}
+.character{
+  width: 250px;
+  height: 250px;
+  top: 40%;
+  left: 35%;
+}
+.head {
+  width: 100%;
+  height: 100%;
+}
+.eye{
+  width: 45%;
+  height: 20%;
+  top: 20%;
+  left: 25%;
+  margin: auto;
+  /* background: red; */
+}
+.mouth {
+  width: 50%;
+  height: 30%;
+  top: 50%;
+  left: 23%;
+  /* background: green; */
+}
+
+/* butに関して */
+.but_list {
+  width: 70%;
+  height: 40%;
+  margin: auto;
+}
+.but_hierarchy_1, .but_hierarchy_2{
+  height: 45%;
+  display: flex;
+}
+.but {flex: auto;}
+.but_list a {font-size: xx-large;}
+.select_item {
+  width: 70%;
+  height: 50%;
+  margin: 10% auto 0;
+}
+
+.test_but button {
+  width: 250px;
+  height: 200px;
+}
+
+.profile
+{
+  width: 80%;
+  height: 700px;
+  margin: 0 auto;
+}
+
+canvas
+{
+  width: 100%;
+  height: 100%;
+  /* background: rgba(255, 0, 0, 0.5); */
+}
