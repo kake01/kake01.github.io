@@ -3,6 +3,7 @@ var ctx = canvas.getContext('2d');
 var head_num = 9;
 var eye_control_y = 60;
 var eye_pos_y = 60;
+var eye_angle = 0;
 var mouth_control_y = 100;
 var mouth_pos_y = 100;
 
@@ -46,8 +47,16 @@ function CreateEye(context, start_x, start_y, end_x, end_y, control_x, control_y
 	// 怒り目
 	if(72 <= eye_control_y)
 	{
-		// console
-		console.log(11);
+		//左目
+		context.beginPath();
+		context.arc(80, 50, 10, 1/16 * Math.PI + eye_angle, 17/16 * Math.PI + eye_angle, false);
+		context.fillStyle = 'rgb(0, 0, 255)';
+		context.fill();
+		// 右目
+		context.beginPath();
+		context.arc(80 + eye_width, 50, 10, -1/16 * Math.PI - eye_angle, 15/16 * Math.PI - eye_angle, false);
+		context.fillStyle = 'rgb(0, 0, 255)';
+		context.fill();
 	}
 }
 function CreateHead(context, n, dx, dy, size)
@@ -77,12 +86,20 @@ function CreateMouth(context, start_x, start_y, end_x, end_y, control_x, control
 }
 function good_eye()
 {
+	if(72 <= eye_control_y)
+	{
+		eye_angle -= 1/16 * Math.PI
+	}
 	eye_control_y -= 3;
 	eye_pos_y += 3;
 	CleateCharacter();
 }
 function bad_eye()
 {
+	if(72 <= eye_control_y)
+	{
+		eye_angle += 1/16 * Math.PI
+	}
 	eye_control_y += 3;
 	eye_pos_y -= 3;
 	CleateCharacter();
