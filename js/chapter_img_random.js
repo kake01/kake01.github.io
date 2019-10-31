@@ -31,6 +31,21 @@ var eye_control_y1 = chara_center_y1 - 50;
 var mouth_pos_y1 = chara_center_y1 + 50;
 var mouth_control_y1 = chara_center_y1 + 50;
 
+
+var chara_center_x2 = 200;
+var chara_center_y2 = 250;
+var eye_pos_y2 = chara_center_y2 - 50;
+var eye_control_y2 = chara_center_y2 - 50;
+var mouth_pos_y2 = chara_center_y2 + 50;
+var mouth_control_y2 = chara_center_y2 + 50;
+
+var chara_center_x3 = 200;
+var chara_center_y3 = 500;
+var eye_pos_y3 = chara_center_y3 - 50;
+var eye_control_y3 = chara_center_y3 - 50;
+var mouth_pos_y3 = chara_center_y3 + 50;
+var mouth_control_y3 = chara_center_y3 + 50;
+
 onload = function()
 {
 	CreateHead(head_num, chara_center_x, chara_center_y, head_big_radi);
@@ -40,6 +55,14 @@ onload = function()
 	CreateHead(head_num, chara_center_x1, chara_center_y1, head_big_radi);
 	CreateMouth(chara_center_x1 - 50, mouth_pos_y1, chara_center_x1 + 50, mouth_pos_y1, mouth_control_y1);
 	CreateEye(chara_center_x1 - (eye_end_to_center + eye_width),	eye_pos_y1, chara_center_x1 - eye_end_to_center, eye_pos_y1, eye_control_y1, eye_to_eye + eye_end_to_center);
+
+	CreateHead(head_num, chara_center_x2, chara_center_y2, head_big_radi);
+	CreateMouth(chara_center_x2 - 50, mouth_pos_y2, chara_center_x2 + 50, mouth_pos_y2, mouth_control_y2);
+	CreateEye(chara_center_x2 - (eye_end_to_center + eye_width),	eye_pos_y2, chara_center_x2 - eye_end_to_center, eye_pos_y2, eye_control_y2, eye_to_eye + eye_end_to_center);
+
+	CreateHead(head_num, chara_center_x3, chara_center_y3, head_big_radi);
+	CreateMouth(chara_center_x3 - 50, mouth_pos_y3, chara_center_x3 + 50, mouth_pos_y3, mouth_control_y3);
+	CreateEye(chara_center_x3 - (eye_end_to_center + eye_width),	eye_pos_y3, chara_center_x3 - eye_end_to_center, eye_pos_y3, eye_control_y3, eye_to_eye + eye_end_to_center);
 };
 
 function CreateEye(start_x, start_y, end_x, end_y, control_y, eye_width)
