@@ -17,6 +17,10 @@ var eye_control_y = chara_center_y - 50;
 var mouth_pos_y = chara_center_y + 25;
 var mouth_control_y = chara_center_y + 25;
 var temp_temp = 0;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89231fb0c193fd6ae26c349eaedbb5a2cf46345a
 //キャラごに違う
 var head_big_radi = 100;
 var radi_small = head_big_radi - 20;//固定
@@ -30,6 +34,7 @@ var eye_pos_y1 = chara_center_y1 - 50;
 var eye_control_y1 = chara_center_y1 - 50;
 var mouth_pos_y1 = chara_center_y1 + 50;
 var mouth_control_y1 = chara_center_y1 + 50;
+<<<<<<< HEAD
 
 
 var chara_center_x2 = 200;
@@ -45,6 +50,8 @@ var eye_pos_y3 = chara_center_y3 - 50;
 var eye_control_y3 = chara_center_y3 - 50;
 var mouth_pos_y3 = chara_center_y3 + 50;
 var mouth_control_y3 = chara_center_y3 + 50;
+=======
+>>>>>>> 89231fb0c193fd6ae26c349eaedbb5a2cf46345a
 
 onload = function()
 {
@@ -55,6 +62,7 @@ onload = function()
 	CreateHead(head_num, chara_center_x1, chara_center_y1, head_big_radi);
 	CreateMouth(chara_center_x1 - 50, mouth_pos_y1, chara_center_x1 + 50, mouth_pos_y1, mouth_control_y1);
 	CreateEye(chara_center_x1 - (eye_end_to_center + eye_width),	eye_pos_y1, chara_center_x1 - eye_end_to_center, eye_pos_y1, eye_control_y1, eye_to_eye + eye_end_to_center);
+<<<<<<< HEAD
 
 	CreateHead(head_num, chara_center_x2, chara_center_y2, head_big_radi);
 	CreateMouth(chara_center_x2 - 50, mouth_pos_y2, chara_center_x2 + 50, mouth_pos_y2, mouth_control_y2);
@@ -63,6 +71,8 @@ onload = function()
 	CreateHead(head_num, chara_center_x3, chara_center_y3, head_big_radi);
 	CreateMouth(chara_center_x3 - 50, mouth_pos_y3, chara_center_x3 + 50, mouth_pos_y3, mouth_control_y3);
 	CreateEye(chara_center_x3 - (eye_end_to_center + eye_width),	eye_pos_y3, chara_center_x3 - eye_end_to_center, eye_pos_y3, eye_control_y3, eye_to_eye + eye_end_to_center);
+=======
+>>>>>>> 89231fb0c193fd6ae26c349eaedbb5a2cf46345a
 };
 
 function CreateEye(start_x, start_y, end_x, end_y, control_y, eye_width)
@@ -81,6 +91,11 @@ function CreateEye(start_x, start_y, end_x, end_y, control_y, eye_width)
 		ctx.lineWidth = 2;
 		ctx.stroke();
 	}
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 89231fb0c193fd6ae26c349eaedbb5a2cf46345a
 	// 目玉あり
 	if(-10 < temp_temp && temp_temp < 0)
 	{
@@ -111,6 +126,10 @@ function CreateEye(start_x, start_y, end_x, end_y, control_y, eye_width)
 	}
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89231fb0c193fd6ae26c349eaedbb5a2cf46345a
 function CreateMouth(start_x, start_y, end_x, end_y, control_y)
 {
 	//control_yで口の開き具合
@@ -127,6 +146,10 @@ function CreateHead(n, dx, dy, radi_big)
 	var angle_big = Math.PI/n;
 	var angle_small = 1/6 + Math.PI/n;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89231fb0c193fd6ae26c349eaedbb5a2cf46345a
 	ctx.beginPath();
 	for(var i = 0; i < 2 * Math.PI; i += angle_big)
 	{
