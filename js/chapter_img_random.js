@@ -6,23 +6,106 @@ var mouth_count = 0;
 var eye_count = 0;
 var head_num = 8;
 
+var test_x = new Array(200, 500);
+var test_y = new Array(475, 500);
+var head_size = new Array(5, 40);
+var head_color = new Array("#000000", "#f0f8ff");
 
-//キャラ1
-//var chara_center_x = 375;
-//var chara_center_y = 375;
-var test_x = new Array(375,500);
-var test_y = new Array(475,500);
+
 
 onload = function()
 {
-  for(var i=0; i< 2; i++)
+  for(var i = 0; i < 2; i++)
   {
-    CreateHead(head_num, test_x[i], test_y[i], head_count);
+    CreateHead(head_num, test_x[i], test_y[i], head_count, head_size[i], head_color[i]);
     CreateMouth(test_x[i] , test_y[i], mouth_count);
     CreateEye(test_x[i], test_y[i], eye_count);
   }
 };
 
+
+
+function CreateHead(n, dx, dy, counter, size, color)
+{
+  head_count += counter
+  var angle_big = Math.PI / n;
+  var angle_small = 1/6 + Math.PI / n;
+  var radi_small = 80;//固定
+  var radi_inside = radi_small + size;//固定,引数で変化
+  var head_big_radi = radi_inside + 20 + head_count;
+  ctx.beginPath();
+  for(var i = 0; i < 2 * Math.PI; i += angle_big)
+  {
+    var big_x = Math.sin(i) * head_big_radi;
+    var big_y = Math.cos(i) * head_big_radi;
+    var small_x = Math.sin(1/6 + i) * radi_inside;
+    var small_y = Math.cos(1/6 + i) * radi_inside;
+    ctx.lineTo(big_x + dx, big_y + dy);
+    ctx.lineTo(small_x + dx, small_y + dy);
+  }
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.arc( dx, dy, radi_small, 0, 2 * Math.PI, false);
+}
+
+function CleateCharacter(hed_counter, mouth_count, eye_count)
+{
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (var i = 0; i < 2; i++)
+  {
+    CreateHead(head_num, test_x[i], test_y[i], hed_counter, head_size[i], head_color[i]);
+    CreateMouth(test_x[i] , test_y[i], mouth_count);
+    CreateEye(test_x[i], test_y[i], eye_count);
+  }
+}
+
+
+
+
+
+document.addEventListener('keydown', (event) => {
+  var keyName = event.key;
+  /*
+  if(keyName == "g")
+  {
+  good_head();
+}
+if(keyName == "b")
+{
+bad_head();
+}
+if(keyName == "h")
+{
+good_mouth();
+}
+if(keyName == "n")
+{
+bad_mouth();
+}
+if(keyName == "j")
+{
+good_eye();
+}
+if(keyName == "m")
+{
+bad_eye();
+}
+*/
+
+if(keyName == "a")
+{
+  good_head();
+  good_mouth();
+  good_eye();
+}
+if(keyName == "z")
+{
+  bad_head();
+  bad_mouth();
+  bad_eye();
+}
+});
 
 function CreateEye(chara_center_x, chara_center_y, counter)
 {
@@ -100,30 +183,6 @@ function CreateMouth(chara_center_x, chara_center_y, counter)
   ctx.lineWidth = 5;
   ctx.stroke();
 }
-function CreateHead(n, dx, dy, counter)
-{
-  head_count += counter
-  var angle_big = Math.PI / n;
-  var angle_small = 1/6 + Math.PI / n;
-  var radi_small = 80;//固定
-  var radi_inside = radi_small + 10;//固定
-  var head_big_radi = radi_small + 20 + head_count;
-
-  ctx.beginPath();
-  for(var i = 0; i < 2 * Math.PI; i += angle_big)
-  {
-    var big_x = Math.sin(i) * head_big_radi;
-    var big_y = Math.cos(i) * head_big_radi;
-    var small_x = Math.sin(1/6 + i) * radi_inside;
-    var small_y = Math.cos(1/6 + i) * radi_inside;
-    ctx.lineTo(big_x + dx, big_y + dy);
-    ctx.lineTo(small_x + dx, small_y + dy);
-  }
-  ctx.closePath();
-  ctx.fillStyle = "#00f";
-  ctx.fill();
-  ctx.arc( dx, dy, radi_small, 0, 2 * Math.PI, false);
-}
 function good_eye()
 {
   CleateCharacter(0, 0, 1);
@@ -156,62 +215,3 @@ function bad_all()
 {
   CleateCharacter(-7, -4, -1);
 }
-function CleateCharacter(hed_counter, mouth_count, eye_count)
-{
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  //   CreateHead(head_num, chara_center_x, chara_center_y, hed_counter);
-  //   CreateMouth(chara_center_x , chara_center_y, mouth_count);
-  //   CreateEye(chara_center_x, chara_center_y, eye_count);
-  for (var i = 0; i < 2; i++) {
-    CreateHead(head_num, test_x[i], test_y[i], hed_counter);
-    CreateMouth(test_x[i] , test_y[i], mouth_count);
-    CreateEye(test_x[i], test_y[i], eye_count);
-
-  }
-
-
-}
-
-document.addEventListener('keydown', (event) => {
-  var keyName = event.key;
-  if(keyName == "g")
-  {
-    good_head();
-    //  good_mouth();
-  }
-  if(keyName == "b")
-  {
-    bad_head();
-    //    bad_mouth();
-  }
-  if(keyName == "h")
-  {
-    good_mouth();
-  }
-  if(keyName == "n")
-  {
-    bad_mouth();
-  }
-  if(keyName == "j")
-  {
-    good_eye();
-  }
-  if(keyName == "m")
-  {
-    bad_eye();
-  }
-
-  if(keyName == "a")
-  {
-    good_head();
-    good_mouth();
-    good_eye();
-  }
-  if(keyName == "z")
-  {
-    bad_head();
-    bad_mouth();
-    bad_eye();
-  }
-});
