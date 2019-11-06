@@ -4,59 +4,64 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>わなすか|TOP</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/Home.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 </head>
 
 <body>
-  <canvas id="rectangle" width="750" height="750"></canvas>
+  <header class="sticky-top offset-2 col-8">
+    <h1>わなすか</h1>
+  </header>
 
-  <div class="test_but">
-    <div class="row">
-      <button type="button" name="button" onclick="bad_head()">
-        <h1>悪い頭</h1>
-      </button>
-      <button type="button" name="button" onclick="good_head()">
-        <h1>良い頭</h1>
-      </button>
+  <main class="offset-1 col-10">
+    <div class="characterTraining">
+      <canvas id="rectangle" width="750" height="800"></canvas>
     </div>
 
-    <div class="row">
-      <button type="button" name="button" onclick="bad_eye()">
-        <h1>悪い目</h1>
-      </button>
-      <button type="button" name="button" onclick="good_eye()">
-        <h1>良い目</h1>
-      </button>
+    <div class="DairyMission container-fluid">
+      <div class="Title">
+        <h1>デイリーミッション</h1>
+      </div>
+      <!-- <div class="row"> -->
+
+      <div class="MissionList form-check offset-1 col-10">
+        <div class="radio-inline">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">標準のチェックボックス</label>
+        </div>
+        <div class="radio-inline">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+          <label class="form-check-label" for="defaultCheck2">標準のチェックボックス</label>
+        </div>
+        <div class="radio-inline">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+          <label class="form-check-label" for="defaultCheck3">標準のチェックボックス</label>
+        </div>
+        <!-- </div> -->
+      </div>
+
     </div>
-    <!-- <div class="row">
-      <button type="button" name="button" onclick="change_eye(-1)">
-        <h1>悪い目</h1>
-      </button>
-      <button type="button" name="button" onclick="change_eye(1)">
-        <h1>良い目</h1>
-      </button>
-    </div> -->
+  </main>
 
+  <footer class="fixed-bottom">
     <div class="row">
-      <button type="button" name="button" onclick="bad_mouth()">
-        <h1>悪い口</h1>
-      </button>
-      <button type="button" name="button" onclick="good_mouth()">
-        <h1>良い口</h1>
-      </button>
+      <div class="col-4">
+        <i class="fab fa-twitter fa-4x"></i>
+      </div>
+      <div class="col-4">
+        <i class="fas fa-users fa-4x"></i>
+      </div>
+      <div class="col-4">
+        <i class="fas fa-cog fa-4x"></i>
+      </div>
     </div>
-
-    <div class="row">
-      <button type="button" name="button" onclick="bad_all()">
-        <h1>Bad_ALL</h1>
-      </button>
-      <button type="button" name="button" onclick="good_all()">
-        <h1>GoodALL</h1>
-      </button>
-    </div>
-  </div>
+  </footer>
 
 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="../js/chapter_img_random.js"></script>
 </body>
 </html>
