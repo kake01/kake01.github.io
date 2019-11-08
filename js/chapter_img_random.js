@@ -8,24 +8,27 @@ var head_num = 8;
 
 
 var parameter = [
-  [200,475,1, "#000000"],
-  [500,500,1.1"#f0f8ff"]
+  //pos_x,pos_y,サイズの倍数,色
+  [200, 475, 1, "#000000"],
+  [500, 500, 1.3, "#f0f8ff"],
+  [700, 400, 2, "#66FF99"]
 ]
 
-var test_x = new Array(200, 500);
-var test_y = new Array(475, 500);
-var head_size = new Array(1, 0.5);
-var head_color = new Array("#000000", "#f0f8ff");
+// var test_x = new Array(200, 500);
+// var test_y = new Array(475, 500);
+// var head_size = new Array(1, 0.5);
+// var head_color = new Array("#000000", "#f0f8ff");
 
 
 
 onload = function()
 {
-  for(var i = 0; i < test_x.length; i++)
+  console.log(parameter[0][0]);
+  for(var i = 0; i < parameter.length; i++)
   {
-    CreateHead(head_num, test_x[i], test_y[i], head_count, head_size[i], head_color[i]);
-    CreateMouth(test_x[i] , test_y[i], mouth_count, head_size[i]);
-    CreateEye(test_x[i], test_y[i], eye_count, head_size[i]);
+    CreateHead(head_num, parameter[i][0], parameter[i][1], head_count, parameter[i][2], parameter[i][3]);
+    CreateMouth(parameter[i][0] , parameter[i][1], mouth_count, parameter[i][2]);
+    CreateEye(parameter[i][0], parameter[i][1], eye_count, parameter[i][2]);
   }
 };
 
@@ -131,11 +134,11 @@ function CreateEye(chara_center_x, chara_center_y, counter, size)
 function CleateCharacter(hed_counter, mouth_count, eye_count)
 {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (var i = 0; i < test_x.length; i++)
+  for (var i = 0; i < parameter.length; i++)
   {
-    CreateHead(head_num, test_x[i], test_y[i], hed_counter, head_size[i], head_color[i]);
-    CreateMouth(test_x[i] , test_y[i], mouth_count, head_size[i]);
-    CreateEye(test_x[i], test_y[i], eye_count, head_size[i]);
+    CreateHead(head_num, parameter[i][0], parameter[i][1], hed_counter, parameter[i][2], parameter[i][3]);
+    CreateMouth(parameter[i][0] , parameter[i][1], mouth_count, parameter[i][2]);
+    CreateEye(parameter[i][0], parameter[i][1], eye_count, parameter[i][2]);
   }
 }
 function good_eye()
@@ -164,11 +167,11 @@ function bad_mouth()
 }
 function good_all()
 {
-  CleateCharacter(7, 4, 1);
+  CleateCharacter(-3, 4, 1);
 }
 function bad_all()
 {
-  CleateCharacter(-7, -4, -1);
+  CleateCharacter(3, -4, -1);
 }
 document.addEventListener('keydown', (event) => {
   var keyName = event.key;
@@ -201,14 +204,10 @@ bad_eye();
 
 if(keyName == "a")
 {
-  good_head();
-  good_mouth();
-  good_eye();
+  good_all();
 }
 if(keyName == "z")
 {
-  bad_head();
-  bad_mouth();
-  bad_eye();
+  bad_all();
 }
 });
