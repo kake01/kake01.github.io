@@ -6,32 +6,36 @@ var mouth_count = 0;
 var eye_count = 0;
 var head_num = 8;
 
+
+var parameter = [
+  [200,475,1, "#000000"],
+  [500,500,1.1"#f0f8ff"]
+]
+
 var test_x = new Array(200, 500);
 var test_y = new Array(475, 500);
-var head_size = new Array(5, 40);
+var head_size = new Array(1, 0.5);
 var head_color = new Array("#000000", "#f0f8ff");
 
 
 
 onload = function()
 {
-  for(var i = 0; i < 2; i++)
+  for(var i = 0; i < test_x.length; i++)
   {
     CreateHead(head_num, test_x[i], test_y[i], head_count, head_size[i], head_color[i]);
-    CreateMouth(test_x[i] , test_y[i], mouth_count);
-    CreateEye(test_x[i], test_y[i], eye_count);
+    CreateMouth(test_x[i] , test_y[i], mouth_count, head_size[i]);
+    CreateEye(test_x[i], test_y[i], eye_count, head_size[i]);
   }
 };
-
-
 
 function CreateHead(n, dx, dy, counter, size, color)
 {
   head_count += counter
   var angle_big = Math.PI / n;
   var angle_small = 1/6 + Math.PI / n;
-  var radi_small = 80;//固定
-  var radi_inside = radi_small + size;//固定,引数で変化
+  var radi_small = 80 ;//固定
+  var radi_inside = radi_small * size;//固定,引数で変化
   var head_big_radi = radi_inside + 20 + head_count;
   ctx.beginPath();
   for(var i = 0; i < 2 * Math.PI; i += angle_big)
@@ -48,81 +52,37 @@ function CreateHead(n, dx, dy, counter, size, color)
   ctx.fill();
   ctx.arc( dx, dy, radi_small, 0, 2 * Math.PI, false);
 }
-
-function CleateCharacter(hed_counter, mouth_count, eye_count)
+function CreateMouth(chara_center_x, chara_center_y, counter, size)
 {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (var i = 0; i < 2; i++)
-  {
-    CreateHead(head_num, test_x[i], test_y[i], hed_counter, head_size[i], head_color[i]);
-    CreateMouth(test_x[i] , test_y[i], mouth_count);
-    CreateEye(test_x[i], test_y[i], eye_count);
-  }
+  mouth_count += counter;
+  var mouth_start_x = chara_center_x - 45 * size;
+  var mouth_end_x = chara_center_x + 45 * size;
+  var mouth_center_y = chara_center_y + 25 * size;
+  var mouth_control_y = mouth_center_y + mouth_count;
+  //control_yで口の開き具合
+  ctx.beginPath();
+  ctx.moveTo(mouth_start_x, mouth_center_y);
+  ctx.quadraticCurveTo(chara_center_x, mouth_control_y, mouth_end_x, mouth_center_y);
+  ctx.strokeStyle = "Orange";
+  ctx.lineWidth = 5;
+  ctx.stroke();
 }
-
-
-
-
-
-document.addEventListener('keydown', (event) => {
-  var keyName = event.key;
-  /*
-  if(keyName == "g")
-  {
-  good_head();
-}
-if(keyName == "b")
-{
-bad_head();
-}
-if(keyName == "h")
-{
-good_mouth();
-}
-if(keyName == "n")
-{
-bad_mouth();
-}
-if(keyName == "j")
-{
-good_eye();
-}
-if(keyName == "m")
-{
-bad_eye();
-}
-*/
-
-if(keyName == "a")
-{
-  good_head();
-  good_mouth();
-  good_eye();
-}
-if(keyName == "z")
-{
-  bad_head();
-  bad_mouth();
-  bad_eye();
-}
-});
-
-function CreateEye(chara_center_x, chara_center_y, counter)
+function CreateEye(chara_center_x, chara_center_y, counter, size)
 {
   eye_count += counter;
   //目の中央
-  var eye_left_center_x = chara_center_x - 40;
-  var eye_rigth_center_x = chara_center_x + 40;
+  var eye_left_center_x = chara_center_x - 40 * size;
+  var eye_rigth_center_x = chara_center_x + 40 * size;
   //目の長さ
-  var eye_width = 20;
-  var eye_center_y = chara_center_y - 25;
+  var eye_width = 20 * size;
+  var eye_center_y = chara_center_y - 25 * size;
   //左目の右目 start点,end点
   var eye_left_start_x = eye_left_center_x - eye_width;
   var eye_left_end_x = eye_left_center_x + eye_width;
   var eye_rigth_start_x = eye_rigth_center_x - eye_width;
   var eye_rigth_end_x = eye_rigth_center_x + eye_width;
   //ゆがむy座標
-  var eye_control_y = eye_center_y - eye_count * 3;
+  var eye_control_y = eye_center_y - eye_count * 3 * size;
 
   //ただの線
   if(0 <= eye_count)
@@ -168,20 +128,15 @@ function CreateEye(chara_center_x, chara_center_y, counter)
     ctx.fill();
   }
 }
-function CreateMouth(chara_center_x, chara_center_y, counter)
+function CleateCharacter(hed_counter, mouth_count, eye_count)
 {
-  mouth_count += counter;
-  var mouth_start_x = chara_center_x - 45;
-  var mouth_end_x = chara_center_x + 45;
-  var mouth_center_y = chara_center_y + 25;
-  var mouth_control_y = mouth_center_y + mouth_count;
-  //control_yで口の開き具合
-  ctx.beginPath();
-  ctx.moveTo(mouth_start_x, mouth_center_y);
-  ctx.quadraticCurveTo(chara_center_x, mouth_control_y, mouth_end_x, mouth_center_y);
-  ctx.strokeStyle = "Orange";
-  ctx.lineWidth = 5;
-  ctx.stroke();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (var i = 0; i < test_x.length; i++)
+  {
+    CreateHead(head_num, test_x[i], test_y[i], hed_counter, head_size[i], head_color[i]);
+    CreateMouth(test_x[i] , test_y[i], mouth_count, head_size[i]);
+    CreateEye(test_x[i], test_y[i], eye_count, head_size[i]);
+  }
 }
 function good_eye()
 {
@@ -215,3 +170,45 @@ function bad_all()
 {
   CleateCharacter(-7, -4, -1);
 }
+document.addEventListener('keydown', (event) => {
+  var keyName = event.key;
+  /*
+  if(keyName == "g")
+  {
+  good_head();
+}
+if(keyName == "b")
+{
+bad_head();
+}
+if(keyName == "h")
+{
+good_mouth();
+}
+if(keyName == "n")
+{
+bad_mouth();
+}
+if(keyName == "j")
+{
+good_eye();
+}
+if(keyName == "m")
+{
+bad_eye();
+}
+*/
+
+if(keyName == "a")
+{
+  good_head();
+  good_mouth();
+  good_eye();
+}
+if(keyName == "z")
+{
+  bad_head();
+  bad_mouth();
+  bad_eye();
+}
+});
