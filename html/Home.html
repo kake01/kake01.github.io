@@ -10,54 +10,62 @@
 </head>
 
 <body>
-  <header class="sticky-top offset-2 col-8">
-    <h1>わなすか</h1>
-  </header>
+  <div class="container-fluid">
+    <header class="sticky-top">
+      <h1>わなすか</h1>
+    </header>
 
-  <main class="offset-1 col-10">
-    <div class="characterTraining">
-      <canvas id="rectangle" width="750" height="800"></canvas>
-    </div>
+    <main>
+      <div class="row">
+        <div class="offset-1 col-10">
 
-    <div class="DairyMission container-fluid">
-      <div class="Title">
-        <h1>デイリーミッション</h1>
-      </div>
-      <!-- <div class="row"> -->
+          <div class="characterTraining">
+            <canvas id="rectangle" width="750" height="800"></canvas>
+            <div class="">
+              <button class="btn btn-primary btn-lg">投稿</button>
+            </div>
+          </div>
+          <div class="DairyMission">
+            <div class="Title">
+              <h1>デイリーミッション</h1>
+            </div>
 
-      <div class="MissionList form-check offset-1 col-10">
-        <div class="radio-inline">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">標準のチェックボックス</label>
+            <div class="row">
+              <div class="MissionList form-check offset-1 col-10">
+                <div class="radio-inline">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">標準のチェックボックス</label>
+                </div>
+
+                <div class="radio-inline">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                  <label class="form-check-label" for="defaultCheck2">標準のチェックボックス</label>
+                </div>
+                <div class="radio-inline">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                  <label class="form-check-label" for="defaultCheck3">標準のチェックボックス</label>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="radio-inline">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-          <label class="form-check-label" for="defaultCheck2">標準のチェックボックス</label>
+      </div>
+    </main>
+
+    <footer class="fixed-bottom">
+      <div class="row">
+        <div class="col-4">
+          <i class="fab fa-twitter fa-4x"></i>
         </div>
-        <div class="radio-inline">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-          <label class="form-check-label" for="defaultCheck3">標準のチェックボックス</label>
+        <div class="col-4">
+          <i class="fas fa-users fa-4x"></i>
         </div>
-        <!-- </div> -->
+        <div class="col-4">
+          <i class="fas fa-cog fa-4x"></i>
+        </div>
       </div>
-
-    </div>
-  </main>
-
-  <footer class="fixed-bottom">
-    <div class="row">
-      <div class="col-4">
-        <i class="fab fa-twitter fa-4x"></i>
-      </div>
-      <div class="col-4">
-        <i class="fas fa-users fa-4x"></i>
-      </div>
-      <div class="col-4">
-        <i class="fas fa-cog fa-4x"></i>
-      </div>
-    </div>
-  </footer>
-
+    </footer>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
