@@ -1,5 +1,7 @@
+//内部の変数 => パラメーターの変更はしない
 var canvas = document.getElementById('rectangle');
 var ctx = canvas.getContext('2d');
+var coordinate = 0;
 
 //外部
 var head_num = 8;
@@ -8,40 +10,34 @@ var head_count = [0,0,0,0];
 var mouth_count = [0,0,0,0];
 var eye_count = [0,0,0,0];
 
-// var original_chara_x =
-// var original_chara_y =
-var chara_x = [200,500,700,200];
-var chara_y = [475,500,400,200];
-// //キャラの座標を補完
-// var storage_chara_x = chara_x;
-// var storage_chara_y = chara_y;
-
-// console.log(storage_chara_y);
-
 var scale = [1.3,1.3,2,1.4];
-var coordinate = 0;
+
+var original_chara_x = [200,500,700,200];
+var original_chara_y = [475,500,400,200];
+
+//元の位置に戻すのに使う
+var chara_x = original_chara_x.slice(0, original_chara_x.length);
+var chara_y = original_chara_y.slice(0, original_chara_y.length);
 
 onload = function()
 {
   CreateHead(head_num, chara_x, chara_y, 0, scale, color);
   CreateMouth(chara_x , chara_y, 0, scale);
   CreateEye(chara_x, chara_y, 0, scale);
-  setInterval("showNowDate()", 1000);
+  //
+  setInterval("TimeUpDate()", 500);
 };
 
-// //現在時刻を表示する関数
-function showNowDate()
+function TimeUpDate()
 {
   coordinate++;
 
-
   if(coordinate == 3)
   {
-    // console.log(storage_chara_x[0]);
     for(var i = 0; i < head_count.length; i++)
     {
-      // chara_x[i] = storage_chara_x[i];
-      // chara_y[i] = storage_chara_y[i];
+      chara_x[i] = original_chara_x[i];
+      chara_y[i] = original_chara_y[i];
     }
     coordinate = 0;
   }
@@ -49,26 +45,22 @@ function showNowDate()
   {
     for(var i = 0; i < head_count.length; i++)
     {
-      // chara_x[i] =  storage_chara_x[i] - Math.random() * 10;
-    //  chara_y[i] =  storage_chara_y[i] - Math.random() * 10;
+      chara_x[i] =  original_chara_x[i] + Math.random(4) -2;
+      chara_y[i] =  original_chara_y[i] + Math.random(4) -2;
     }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    CreateHead(head_num, chara_x, chara_y, 0, scale, color);
-    CreateMouth(chara_x , chara_y, 0, scale);
-    CreateEye(chara_x, chara_y, 0, scale);
   }
   if(coordinate == 1)
   {
     for(var i = 0; i < head_count.length; i++)
     {
-      // chara_x[i] =  storage_chara_x[i] + Math.random() * 10;
-      // chara_y[i] =  storage_chara_y[i] + Math.random() * 10;
+      chara_x[i] = original_chara_x[i] + Math.random(4) -2;
+      chara_y[i] = original_chara_y[i] + Math.random(4) -2;
     }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    CreateHead(head_num, chara_x, chara_y, 0, scale, color);
-    CreateMouth(chara_x , chara_y, 0, scale);
-    CreateEye(chara_x, chara_y, 0, scale);
   }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  CreateHead(head_num, chara_x, chara_y, 0, scale, color);
+  CreateMouth(chara_x , chara_y, 0, scale);
+  CreateEye(chara_x, chara_y, 0, scale);
 }
 
 function CreateHead(n, dx, dy, counter, size, color)
