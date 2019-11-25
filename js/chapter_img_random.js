@@ -1,49 +1,58 @@
 //内部の変数 => パラメーターの変更はしない
 var canvas = document.getElementById('rectangle');
 var ctx = canvas.getContext('2d');
-
-//外部
-var head_num = 8;
 var eye_count = [];
 var head_count = [];
 var mouth_count = [];
-var virus_num = 30;
-// var color = ["#000000", "#f0f8ff", "#66FF99", "#FFFFFF"];
-var color = [];
-// var scale = [1.3,0.4,2,1.4];
 var chara_x = [];
 var chara_y = [];
+
+//外部
+var virus_num = 15;
+var head_num = 8;
+var color = [];
 var scale = [];
+var up_date_time = 100;
+var move_value = 4;
+var background_color = "#ff69b4";
+
 for(var i = 0; i < virus_num; i++)
 {
   chara_x.push(Math.random() * canvas.width);
   chara_y.push(Math.random() * canvas.height);
-  eye_count .push(0/*プレイヤーによって違う*/);
-  mouth_count.push(0/*プレイヤーによって違う*/);
-  head_count.push(0/*プレイヤーによって違う*/);
 
+  eye_count .push(7/*プレイヤーによって違う*/);
+  mouth_count.push(7/*プレイヤーによって違う*/);
+  head_count.push(-5/*プレイヤーによって違う*/);
 
   let r = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
   let g = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
   let b = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
-
   color.push('#' + r + g + b);
   scale.push(Math.random() + 1);
 }
 
+$(function() {
+  $(".characterTraining").css({
+    "background": background_color
+  });
+});
+
+
 onload = function()
 {
+
   CreateHead(head_num, chara_x, chara_y, 0, scale, color);
   CreateMouth(chara_x , chara_y, 0, scale);
   CreateEye(chara_x, chara_y, 0, scale);
-  setInterval("TimeUpDate()", 200);
+  setInterval("TimeUpDate()", up_date_time);
 };
 function TimeUpDate()
 {
   for(var i = 0; i < head_count.length; i++)
   {
-    chara_x[i] += Math.random() * 4 -2;
-    chara_y[i] += Math.random() * 4 -2;
+    chara_x[i] += Math.random() * move_value - move_value / 2;
+    chara_y[i] += Math.random() * move_value - move_value / 2;
 
     //範囲外に出た場合の処理
     if(chara_x[i] <= 0)
@@ -90,7 +99,6 @@ function CreateHead(n, dx, dy, counter, size, color)
     {
       var head_big_radi = radi_inside + 20 + head_count[i] * 3;
     }
-
     ctx.beginPath();
     for(var j = 0; j < 2 * Math.PI; j += angle_big)
     {
