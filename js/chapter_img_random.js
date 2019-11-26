@@ -6,74 +6,51 @@ var head_count = [];
 var mouth_count = [];
 var chara_x = [];
 var chara_y = [];
+var move_value = 4;
+// 菌の移動範囲
+var min_x = 100;
+var max_x = 700;
+var min_y = 150;
+var max_y = 750;
 
 //外部
-var virus_num = 15;
-var head_num = 8;
+var mission;//0か5,10,15
+var login;//0か5
+var bonus;//0か10
+
+
+var virus_num;//15
+var head_num;//8
 var color = [];
 var scale = [];
-var up_date_time = 100;
-var move_value = 4;
 var background_color = "#ff69b4";
+
 
 for(var i = 0; i < virus_num; i++)
 {
-  chara_x.push(Math.random() * canvas.width);
-  chara_y.push(Math.random() * canvas.height);
+  chara_x.push(Math.random() * (max_x - min_x + 1) + min_x);
+  chara_y.push(Math.random() * (max_y - min_y + 1) + min_y);
+  scale.push(Math.random() + 1);
 
-  eye_count .push(7/*プレイヤーによって違う*/);
-  mouth_count.push(7/*プレイヤーによって違う*/);
-  head_count.push(-5/*プレイヤーによって違う*/);
+  /*プレイヤーによって違う*/
 
+  eye_count .push(0);  //-13 ~ 7
+  mouth_count.push(0); //-5 ~ 5
+  head_count.push(0);  //-5 ~ 5
   let r = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
   let g = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
   let b = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
   color.push('#' + r + g + b);
-  scale.push(Math.random() + 1);
 }
-
-$(function() {
-  $(".characterTraining").css({
-    "background": background_color
-  });
-});
-
 
 onload = function()
 {
-
+  Stomach(min_x, min_y, 600, 600, 100, background_color);
   CreateHead(head_num, chara_x, chara_y, 0, scale, color);
   CreateMouth(chara_x , chara_y, 0, scale);
   CreateEye(chara_x, chara_y, 0, scale);
-  setInterval("TimeUpDate()", up_date_time);
+  setInterval("TimeUpDate()", 100);
 };
-function TimeUpDate()
-{
-  for(var i = 0; i < head_count.length; i++)
-  {
-    chara_x[i] += Math.random() * move_value - move_value / 2;
-    chara_y[i] += Math.random() * move_value - move_value / 2;
-
-    //範囲外に出た場合の処理
-    if(chara_x[i] <= 0)
-    {
-      chara_x[i] = 2;
-    }
-    if(canvas.width <= chara_x[i])
-    {
-      chara_x[i] = canvas.width - 2;
-    }
-    if(chara_y[i] <= 0)
-    {
-      chara_y[i] = 2;
-    }
-    if(canvas.height <= chara_y[i])
-    {
-      chara_y[i] = canvas.height  - 2;
-    }
-  }
-  CleateCharacter(0,0,0);
-}
 function CreateHead(n, dx, dy, counter, size, color)
 {
   for(var i = 0; i < head_count.length; i++)
@@ -240,9 +217,59 @@ function CreateEye(chara_center_x, chara_center_y, counter, size)
     }
   }
 }
+function TimeUpDate()
+{
+  for(var i = 0; i < head_count.length; i++)
+  {
+    chara_x[i] += Math.random() * move_value - move_value / 2;
+    chara_y[i] += Math.random() * move_value - move_value / 2;
+
+    //範囲外に出た場合の処理
+    if(chara_x[i] <= min_x)
+    {
+      chara_x[i] = min_x + 2;
+    }
+    if(max_x <= chara_x[i])
+    {
+      chara_x[i] = max_x - 2;
+    }
+    if(chara_y[i] <= min_y)
+    {
+      chara_y[i] = min_y + 2;
+    }
+    if(max_y <= chara_y[i])
+    {
+      chara_y[i] = max_y - 2;
+    }
+  }
+  CleateCharacter(0,0,0);
+}
+function Stomach(x,y,w,h,r,color)
+{
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.moveTo(x,y + r);
+  ctx.arc(x+r,y+h-r,r,Math.PI,Math.PI*0.5,true);
+  ctx.arc(x+w-r,y+h-r,r,Math.PI*0.5,0,1);
+  ctx.arc(x+w-r,y+r,r,0,Math.PI*1.5,1);
+  ctx.arc(x+r,y+r,r,Math.PI*1.5,Math.PI,1);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.fill();
+  //上下の四角
+  ctx.beginPath();
+  ctx.rect(550, 0, 150, 250);
+  ctx.rect(100, 650, 150, 200);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.fill();
+}
 function CleateCharacter(hed_count, mouth_count, eye_count)
 {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  Stomach(min_x, min_y, 600, 600, 100, background_color);
   CreateHead(head_num, chara_x, chara_y, hed_count, scale, color);
   CreateMouth(chara_x , chara_y, mouth_count, scale);
   CreateEye(chara_x, chara_y, eye_count, scale);

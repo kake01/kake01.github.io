@@ -46,7 +46,7 @@ footer .col-4 i{display: block;}
 }
 .MissionList   input {display: block;}
 .MissionList label {font-size: -webkit-xxx-large;}
-/* .characterTraining {background: #FFF2CC;} */
+.characterTraining {background: #FFF2CC;}
 .characterTraining button {
   width: 100px;
   height: 80px;
