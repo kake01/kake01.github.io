@@ -6,25 +6,27 @@ var head_count = [];
 var mouth_count = [];
 var chara_x = [];
 var chara_y = [];
-var move_value = 4;
 // 菌の移動範囲
+var move_value = 4;
 var min_x = 100;
 var max_x = 700;
 var min_y = 150;
 var max_y = 750;
-
-//外部
-var mission;//0か5,10,15
-var login;//0か5
-var bonus;//0か10
-
-
-var virus_num;//15
-var head_num;//8
 var color = [];
 var scale = [];
-var background_color = "#ff69b4";
+var thorns_num = 9;
 
+
+//外部
+var mission = 0;//0か5,10,15
+var login = 0;//0か5
+var bonus = 0;//0か10
+// mission反映
+var virus_num = 6/*最低個数*/ + ((15 - mission) * 3 + (5 - login) * 2 -  (10- bonus) / 7) / 4;//5 ~ 15
+// 背景色に関して
+var background_blue = (mission + bonus * 3 / 7) / 10 + 192;
+var background_red = Math.floor(448 - background_blue);
+var background_color = '#' + (background_red).toString(16).slice(-2) + "cc" + (background_blue).toString(16).slice(-2);
 
 for(var i = 0; i < virus_num; i++)
 {
@@ -33,10 +35,14 @@ for(var i = 0; i < virus_num; i++)
   scale.push(Math.random() + 1);
 
   /*プレイヤーによって違う*/
+  // eye_count .push(0);  //-13 ~ 7
+  // mouth_count.push(0); //-5 ~ 5
+  // head_count.push(0);  //-5 ~ 5
+  var test = Math.random() * (7 + 13 + 1) - 13;
+  eye_count .push(test);  //-13 ~ 7
+  mouth_count.push(test / 2); //-5 ~ 5
+  head_count.push(test / 2);  //-5 ~ 5
 
-  eye_count .push(0);  //-13 ~ 7
-  mouth_count.push(0); //-5 ~ 5
-  head_count.push(0);  //-5 ~ 5
   let r = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
   let g = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
   let b = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
@@ -45,8 +51,11 @@ for(var i = 0; i < virus_num; i++)
 
 onload = function()
 {
+  //  一日の目安量
+  //  console.log((mission * 3 + login * 2 + bonus * 3) / 100);
+  // console.log((mission * 3 + login * 2 -  bonus / 7) / 4 /*最低個数*/ +6);
   Stomach(min_x, min_y, 600, 600, 100, background_color);
-  CreateHead(head_num, chara_x, chara_y, 0, scale, color);
+  CreateHead(thorns_num, chara_x, chara_y, 0, scale, color);
   CreateMouth(chara_x , chara_y, 0, scale);
   CreateEye(chara_x, chara_y, 0, scale);
   setInterval("TimeUpDate()", 100);
@@ -270,7 +279,7 @@ function CleateCharacter(hed_count, mouth_count, eye_count)
 {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   Stomach(min_x, min_y, 600, 600, 100, background_color);
-  CreateHead(head_num, chara_x, chara_y, hed_count, scale, color);
+  CreateHead(thorns_num, chara_x, chara_y, hed_count, scale, color);
   CreateMouth(chara_x , chara_y, mouth_count, scale);
   CreateEye(chara_x, chara_y, eye_count, scale);
 }
