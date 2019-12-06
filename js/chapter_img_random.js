@@ -1,3 +1,8 @@
+//TODO:
+/*
+*表情を消化率に合わせる
+*/
+
 //内部の変数 => パラメーターの変更はしない
 var canvas = document.getElementById('rectangle');
 var ctx = canvas.getContext('2d');
@@ -18,15 +23,23 @@ var thorns_num = 9;
 
 
 //外部
-var mission = 0;//0か5,10,15
-var login = 0;//0か5
-var bonus = 0;//0か10
+var yest_background = new Array(192, 144, 80);
+var yest_virus_color = 192;
+var yest_virus_num = 6;
+var yest_face = new Array(3, 0);
+
+
+var mission = 15;//0か5,10,15
+var login = 5;//0か5
+var bonus = 10;//0か10
 // mission反映
-var virus_num = 6/*最低個数*/ + ((15 - mission) * 3 + (5 - login) * 2 -  (10- bonus) / 7) / 4;//5 ~ 15
+var virus_num = ((15 - mission) * 3 + (5 - login) * 2 -  (10- bonus) / 7) / 8 + yest_virus_num;//5 ~ 156/*最低個数*/
+
 // 背景色に関して
-var background_blue = (mission + bonus * 3 / 7) / 10 + 192;
-var background_red = Math.floor(448 - background_blue);
-var background_color = '#' + (background_red).toString(16).slice(-2) + "cc" + (background_blue).toString(16).slice(-2);
+var background_red = (mission + bonus * 3 ) / 9;
+var background_green = (mission + bonus * 3 / 2) / 10;
+var background_blue = (mission + bonus * 3) / 9;
+var background_color = '#' + (yest_background[0]).toString(16).slice(-2) + (yest_background[1]).toString(16).slice(-2) + (yest_background[2]).toString(16).slice(-2);
 
 for(var i = 0; i < virus_num; i++)
 {
@@ -39,27 +52,155 @@ for(var i = 0; i < virus_num; i++)
   // mouth_count.push(0); //-5 ~ 5
   // head_count.push(0);  //-5 ~ 5
   var test = Math.random() * (7 + 13 + 1) - 13;
-  eye_count .push(test);  //-13 ~ 7
-  mouth_count.push(test / 2); //-5 ~ 5
-  head_count.push(test / 2);  //-5 ~ 5
+  eye_count.push(test);//-13 ~ 7
+  mouth_count.push(test / 2);//-5 ~ 5
+  head_count.push(test / 2);//-5 ~ 5
 
-  let r = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
-  let g = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
-  let b = ('0' + Math.floor(Math.random() * 255).toString(16)).slice(-2);
-  color.push('#' + r + g + b);
+
+
+
+
+
+
+
+
+
+
+
+
+  //菌の色
+  var median = (mission + bonus * 3 / 7) / 10 + yest_virus_color;
+  var width = 3;
+  var virus_blue = Math.min(255, Math.random() * ((median + width) - (median - width) + 1) + (median - width));
+  if(virus_blue < 0)
+  {
+    virus_blue = 0;
+  }
+  if(virus_blue > 255)
+  {
+    virus_blue = 255;
+  }
+  var virus_green =　Math.random() * ((448 - virus_blue + width) - (448 - virus_blue - width) + 1) + (448 - virus_blue - width);
+  if(virus_green < 0)
+  {
+    virus_green = 0;
+  }
+  if(virus_green > 255)
+  {
+    virus_green = 255;
+  }
+  color.push('#ff' + (virus_green).toString(16).slice(-2) + (virus_blue).toString(16).slice(-2));
 }
 
 onload = function()
 {
   //  一日の目安量
-  //  console.log((mission * 3 + login * 2 + bonus * 3) / 100);
-  // console.log((mission * 3 + login * 2 -  bonus / 7) / 4 /*最低個数*/ +6);
   Stomach(min_x, min_y, 600, 600, 100, background_color);
   CreateHead(thorns_num, chara_x, chara_y, 0, scale, color);
   CreateMouth(chara_x , chara_y, 0, scale);
   CreateEye(chara_x, chara_y, 0, scale);
   setInterval("TimeUpDate()", 100);
 };
+
+// デバッグ
+document.addEventListener('keydown', (event) => {
+  var keyName = event.key;
+  /*
+  if(keyName == "a")
+  {
+  GoodAll();
+}
+if(keyName == "z")
+{
+BadAll();
+}
+*/
+//mission消化率
+if(keyName == "s")
+{
+  background_red += (mission + bonus * 3 ) / 9;
+  var back_red = background_red +  yest_background[0];
+
+  if(back_red > 255)
+  {
+    back_red = 255;
+  }
+  if(back_red < 144)
+  {
+    back_red = 144;
+  }
+  background_green -= (mission + bonus * 3 / 2) / 10;
+  var back_green = background_green +  yest_background[1];
+  if(back_green > 170)
+  {
+    back_green = 170;
+  }
+  if(back_green < 136)
+  {
+    back_green = 136;
+  }
+  background_blue += (mission + bonus * 3) / 9;
+  var back_blue = background_blue +  yest_background[2];
+  if(back_blue > 136)
+  {
+    back_blue = 136;
+  }
+  if(back_blue < 34)
+  {
+    back_blue = 34;
+  }
+  background_color = '#' + (back_red).toString(16).slice(-2) + (back_green).toString(16).slice(-2) + (back_blue).toString(16).slice(-2);
+  console.log('#' + (back_red).toString(16).slice(-2) + (back_green).toString(16).slice(-2) + (back_blue).toString(16).slice(-2));
+  Stomach(min_x, min_y, 600, 600, 100, background_color);
+}
+
+if(keyName == "x")
+{
+  background_red -= (mission + bonus * 3 ) / 9;
+  var back_red = background_red +  yest_background[0];
+
+  if(back_red > 255)
+  {
+    back_red = 255;
+  }
+  if(back_red < 144)
+  {
+    back_red = 144;
+  }
+  background_green += (mission + bonus * 3 / 2) / 10;
+  var back_green = background_green +  yest_background[1];
+  if(back_green > 170)
+  {
+    back_green = 170;
+  }
+  if(back_green < 136)
+  {
+    back_green = 136;
+  }
+  background_blue -= (mission + bonus * 3) / 9;
+  var back_blue = background_blue +  yest_background[2];
+  if(back_blue > 136)
+  {
+    back_blue = 136;
+  }
+  if(back_blue < 34)
+  {
+    back_blue = 34;
+  }
+  background_color = '#' + (back_red).toString(16).slice(-2) + (back_green).toString(16).slice(-2) + (back_blue).toString(16).slice(-2);
+  console.log('#' + (back_red).toString(16).slice(-2) + (back_green).toString(16).slice(-2) + (back_blue).toString(16).slice(-2));
+  Stomach(min_x, min_y, 600, 600, 100, background_color);
+}
+
+
+});
+
+
+
+
+
+
+
 function CreateHead(n, dx, dy, counter, size, color)
 {
   for(var i = 0; i < head_count.length; i++)
@@ -291,14 +432,3 @@ function BadAll()
 {
   CleateCharacter(-1, -1, -1);
 }
-document.addEventListener('keydown', (event) => {
-  var keyName = event.key;
-  if(keyName == "a")
-  {
-    GoodAll();
-  }
-  if(keyName == "z")
-  {
-    BadAll();
-  }
-});
