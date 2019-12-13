@@ -105,9 +105,7 @@ for(var i = 0; i < virus_num; i++)
 
 
   //判定かく
-  color[i] = ('#' + ('0' + (virus_rad[i]).toString(16)).slice(-2) + ('0' + (virus_green[i]).toString(16)).slice(-2) + ('0' + (virus_blue[i]).toString(16)).slice(-2));
-  color[4] = "#000"
-}
+  color[i] = ('#' + ('0' + (virus_rad[i]).toString(16)).slice(-2) + ('0' + (virus_green[i]).toString(16)).slice(-2) + ('0' + (virus_blue[i]).toString(16)).slice(-2));}
 // console.log(virus_rad);
 console.log(color);
 // console.log(virus_rad + " " + virus_green + " " + virus_blue);
