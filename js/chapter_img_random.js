@@ -14,6 +14,8 @@ var min_y = 150;
 var max_y = 750;
 //菌の色幅
 var virus_color_width = 4;
+var virus_num_max = 50;
+var virus_num_min = 3;
 var test_red_max = 255;
 var test_red_min = 119;
 var test_green_max = 136;
@@ -29,7 +31,6 @@ var virus_blue_min = 68;
 var parts_red = [];
 var parts_green =[];
 var parts_blue = [];
-
 var color = [];
 var virus_rad = []
 var virus_green = [];
@@ -46,9 +47,9 @@ var yest_virus_color = new Array(Math.floor((virus_red_max + virus_red_min) /2) 
 var yest_background = new Array(Math.floor((test_red_max + test_red_min) /2) ,Math.floor((test_green_max + test_green_min) /2) ,Math.floor((test_blue_max + test_blue_min) /2));
 var yest_virus_num = 6;
 //デイリーミッションポイント
-var mission = 15;//0か5,10,15
-var login = 5;//0か5
-var bonus = 10;//0か10
+var mission = 0;//0か5,10,15
+var login = 0;//0か5
+var bonus = 0;//0か10
 // 背景色に関して
 var background_red = Math.floor((mission + bonus * 3) / 10);
 var background_green = Math.floor((mission + bonus * 3) / 10);
@@ -58,7 +59,7 @@ var virus_num = yest_virus_num;
 
 // mission反映
 //27は菌の最大数
-for(var i = 0; i < 27; i++)
+for(var i = 0; i < virus_num_max; i++)
 {
   chara_x.push(Math.random() * (max_x - min_x + 1) + min_x);
   chara_y.push(Math.random() * (max_y - min_y + 1) + min_y);
@@ -220,8 +221,8 @@ document.addEventListener('keydown', (event) =>
   {
     //菌の数に関して
     virus_num += Math.floor(test_virus_num_increase + ((15 - mission) * 6 / 5 + (5 - login) * 8 / 5 - bonus * 3 ) / 25);
-    if(virus_num < 3){
-      virus_num = 3;
+    if(virus_num < virus_num_min){
+      virus_num = virus_num_min;
     }
     //背景に関して
     background_red += Math.floor((mission + bonus * 3) / 10);
@@ -270,9 +271,9 @@ document.addEventListener('keydown', (event) =>
   {
     //菌の数に関して
     virus_num += Math.floor(test_virus_num_increase + ((15 - mission) * 6 / 5 + (5 - login) * 8 / 5 - bonus * 3 ) / 25);
-    if(virus_num > 25)
+    if(virus_num > virus_num_max)
     {
-      virus_num = 25;
+      virus_num = virus_num_max;
     }
     //背景に関して
     background_red -= Math.floor((mission + bonus * 3) / 10);
@@ -321,10 +322,7 @@ document.addEventListener('keydown', (event) =>
 onload = function()
 {
   //  一日の目安量
-  Stomach(min_x, min_y, 600, 600, 100, background_color);
-  CreateHead(thorns_num, chara_x, chara_y, 0, scale, color);
-  CreateMouth(chara_x , chara_y, 0, scale);
-  CreateEye(chara_x, chara_y, 0, scale);
+  CleateCharacter(0,0,0);
   setInterval("TimeUpDate()", 100);
 };
 function CreateHead(n, dx, dy, counter, size, color)
@@ -396,6 +394,7 @@ function TimeUpDate()
 }
 function Stomach(x,y,w,h,r,color)
 {
+  // Stomach(min_x, min_y, 600, 600, 100, background_color);
   ctx.beginPath();
   ctx.lineWidth = 1;
   ctx.strokeStyle = color;

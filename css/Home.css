@@ -1,10 +1,18 @@
+.characterTraining {
+  width: 100%;
+  height: 750px;
+  background: #FFF2CC;
+}
+
+/* 下は使わない */
+
 html {
   width: 100%;
   height: 100%;
 }
 body {
   width: 100%;
-  height: 100%;
+  margin: unset;
   background: #E7E6E6;
 }
 header {
@@ -14,6 +22,7 @@ header {
 header > h1 {
   text-align: center;
   line-height: 200px;
+  margin: unset;
 }
 footer  {
   width: 100%;
@@ -46,7 +55,7 @@ footer .col-4 i{display: block;}
 }
 .MissionList   input {display: block;}
 .MissionList label {font-size: -webkit-xxx-large;}
-.characterTraining {background: #FFF2CC;}
+
 .characterTraining button {
   width: 100px;
   height: 80px;
